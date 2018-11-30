@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { inject, observer } from 'mobx-react';
-
-@inject('TodoStore')
-@observer
 export default class Header extends React.Component {
     createTodoItem = (e) => {
         const ENTER_KEYCODE = 13;
@@ -11,7 +7,6 @@ export default class Header extends React.Component {
         const isAbleAddStatus = e.keyCode === ENTER_KEYCODE && value.length > 0;
 
         if (isAbleAddStatus) {
-            this.props.TodoStore.addTodos(value);
             e.target.value = '';
         }
     };

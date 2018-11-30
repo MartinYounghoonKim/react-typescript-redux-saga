@@ -1,9 +1,6 @@
 import React from 'react';
 import Classnames from 'classnames';
-import { observer, inject } from 'mobx-react';
 
-@inject('TodoStore')
-@observer
 export default class Todo extends React.Component {
     toggle = (targetId) => {
         this.props.TodoStore.toggle(targetId);
@@ -24,8 +21,6 @@ export default class Todo extends React.Component {
         if (isPressedEnter) {
             const text = inputElement.value;
             const id = this.props.id;
-
-            this.props.TodoStore.updateTodo({ text, id })
         }
     };
 
