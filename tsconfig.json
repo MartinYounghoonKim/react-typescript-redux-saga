@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "target": "es5",
+    "allowJs": false,
+    "jsx": "react",
+    "strictNullChecks": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@types/",
+    ],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2015.promise"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

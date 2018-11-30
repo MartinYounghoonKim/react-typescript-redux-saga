@@ -41,7 +41,7 @@ module.exports = {
     modules: ['node_modules', paths.appNodeModules].concat(
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx','.ts', '.tsx', '.jsx'],
+    extensions: ['.ts','.tsx', '.js', '.jsx'],
     alias: {
       'react-native': 'react-native-web',
     },
@@ -70,6 +70,7 @@ module.exports = {
               cacheDirectory: true,
             },
           },
+          { test: /\.tsx?$/, loader: "ts-loader" },
           {
             test: /\.css$/,
             use: [
@@ -101,7 +102,7 @@ module.exports = {
             ],
           },
           {
-            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(tsx|ts|js|jsx|mjs)$/, /\.html$/, /\.json$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
