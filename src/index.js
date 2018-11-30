@@ -2,11 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import registerServiceWorker from './registerServiceWorker';
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import { fetchTodos } from './stores/sagas'
+
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  applyMiddleware(sagaMiddleware)
+)
+sagaMiddleware.run(fetchTodos)
+
+const action = type => store.dispatch({type})
 
 const Root = (
   <App/>
 );
 
 ReactDOM.render(Root, document.getElementById('root'));
-registerServiceWorker();

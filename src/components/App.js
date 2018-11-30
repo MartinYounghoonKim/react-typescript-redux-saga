@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
+import {ajaxGet} from "../api/todo.api";
 
 class App extends Component {
   state = {
@@ -12,6 +13,9 @@ class App extends Component {
     ]
   };
   componentWillMount() {
+    ajaxGet().then(res => {
+      console.log(res);
+    })
   }
 
   render() {
