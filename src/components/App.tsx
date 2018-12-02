@@ -3,20 +3,19 @@ import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
-import {ITodo} from "@/interfaces/models";
-// import {ajaxGet} from "../api/todo.api";
+import {ITodo, ITodoState} from "@/interfaces/models";
+import { connect } from "react-redux";
 
 interface IState {
   todos: ITodo[];
 }
 
-class App extends React.Component<{}, IState> {
-  readonly state: IState = {
-    todos: [
-      { id: '1', text: "투두 앱", isDone: false },
-      { id: '2', text: "투두 앱", isDone: false },
-    ]
-  };
+interface IMapStateToProps {
+  todos: ITodo[];
+}
+type IProps = {} & IMapStateToProps;
+
+class App extends React.Component<IProps, IState> {
 
   componentWillMount() {
   }
@@ -24,7 +23,7 @@ class App extends React.Component<{}, IState> {
   render() {
     const {
       todos
-    } = this.state;
+    } = this.props;
     return (
       <div className="todo-app">
         <Header/>
@@ -35,4 +34,8 @@ class App extends React.Component<{}, IState> {
   }
 }
 
-export default App;
+const mapStateToProps = (state: ITodoState) => ({
+  todos: state.todos
+});
+
+export default connect(mapStateToProps)(App);
