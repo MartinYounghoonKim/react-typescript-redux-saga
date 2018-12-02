@@ -1,21 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
-import {ajaxGet} from "../api/todo.api";
+import {ITodo} from "@/interfaces/models";
+// import {ajaxGet} from "../api/todo.api";
 
-class App extends Component {
-  state = {
+interface IState {
+  todos: ITodo[];
+}
+
+class App extends React.Component<{}, IState> {
+  readonly state: IState = {
     todos: [
-      { id: 1, text: "투두 앱", isDone: false },
-      { id: 2, text: "투두 앱", isDone: false },
+      { id: '1', text: "투두 앱", isDone: false },
+      { id: '2', text: "투두 앱", isDone: false },
     ]
   };
+
   componentWillMount() {
-    ajaxGet().then(res => {
-      console.log(res);
-    })
   }
 
   render() {

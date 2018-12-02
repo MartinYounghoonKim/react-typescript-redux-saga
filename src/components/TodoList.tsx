@@ -1,34 +1,36 @@
 import React from 'react';
 
 import Todo from './Todo';
+import {ITodo, ITodos} from "@/interfaces/models";
 
 const todos = [
-  {id: 1, text: "투두 앱", isDone: false},
-  {id: 2, text: "투두 앱", isDone: false},
+  {id: '1', text: "투두 앱", isDone: false},
+  {id: '2', text: "투두 앱", isDone: false},
 ];
-export default class TodoList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      editingId: undefined
-    };
+
+interface IProps {
+  todos: ITodo[]
+}
+interface IState {
+  editingId: string
+}
+export default class TodoList extends React.Component<IProps, IState> {
+  readonly state: IState = {
+    editingId: ''
   }
 
-  setEditingId = (val) => {
+  setEditingId = (val: string) => {
     this.setState({
       editingId: val
     });
   };
   unsetEditingID = () => {
     this.setState({
-      editingId: undefined
+      editingId: ""
     });
   };
 
   render() {
-    const {
-      TodoStore,
-    } = this.props;
     const {
       editingId
     } = this.state;
@@ -41,7 +43,6 @@ export default class TodoList extends React.Component {
                   editingId={editingId}
                   text={text}
                   isDone={isDone}
-                  setEditingId={this.setEditingId}
                   unsetEditingId={this.unsetEditingID}/>
           ))}
         </ul>

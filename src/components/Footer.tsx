@@ -1,8 +1,9 @@
 import React from 'react'
 
-const Footer = (
-  { count }
-) => (
+interface IProps {
+  count: number;
+}
+const Footer: React.FunctionComponent<IProps> = ({ count }) => (
   <footer className="footer">
     <span className="todo-count">
       <strong>{count}</strong>
