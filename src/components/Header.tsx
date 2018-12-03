@@ -4,33 +4,50 @@ interface IState {
   newTodo: string;
 }
 
-export default class Header extends React.Component<{}, IState> {
+interface IProps {
+  addTodo: (text: string) => void;
+}
+
+export default class Header extends React.Component<IProps, IState> {
   private inputElement: HTMLInputElement;
   readonly state: IState = {
     newTodo: ''
   };
 
-  createTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const ENTER_KEYCODE = 13;
-    const value = this.inputElement.value;
-    const isAbleAddStatus = e.keyCode === ENTER_KEYCODE && value.length > 0;
-    this.setState({
-      newTodo: e.currentTarget.value
-    });
-    if (isAbleAddStatus) {
-      e.currentTarget.value = '';
+  addTodo = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = this.state.newTodo;
+    if (text.length > 0) {
+      this.props.addTodo(text);
+      this.resetInputField();
     }
   };
 
+  onKeyDownHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      newTodo: e.currentTarget.value
+    });
+  };
+
+  resetInputField = () => {
+    this.inputElement.value = "";
+  };
+
   render() {
+    const {
+      addTodo,
+      onKeyDownHandler,
+    } = this;
     return (
       <header>
+        <form onSubmit={addTodo}>
         <h1 className="todo-app__header">todos</h1>
         <input type="text"
                className="todo-app__new-todo"
-               onKeyDown={this.createTodoItem}
+               onChange={onKeyDownHandler}
                ref={(inputElement: HTMLInputElement) => this.inputElement = inputElement}/>
-        <button/>
+        <button type='submit'/>
+        </form>
       </header>
     )
   }
