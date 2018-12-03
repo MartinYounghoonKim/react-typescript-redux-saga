@@ -5,7 +5,8 @@ interface IProps {
   id: string;
   text: string;
   isDone: boolean;
-  editingId: string
+  editingId: string;
+  deleteTodo: (id: string) => void;
   unsetEditingId: (e: ChangeEvent) => void;
 }
 export default class Todo extends React.Component<IProps> {
@@ -35,6 +36,7 @@ export default class Todo extends React.Component<IProps> {
       text,
       isDone,
       editingId,
+      deleteTodo,
       unsetEditingId
     } = this.props;
     return (
@@ -47,7 +49,8 @@ export default class Todo extends React.Component<IProps> {
         <button className="toggle" onClick={() => this.toggle(id)}/>
         <div className="todo-item__view">
           <div className="todo-item__view__text">{text}</div>
-          <button className="todo-item__destroy" onClick={() => this.deleteTodo(id)}/>
+          <button className="todo-item__destroy"
+                  onClick={() => deleteTodo(id)}/>
         </div>
         <input
           ref={(inputElement: HTMLInputElement) => this.inputElement = inputElement}

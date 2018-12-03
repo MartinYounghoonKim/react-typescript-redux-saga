@@ -5,6 +5,7 @@ import { ITodo } from "@/interfaces/models";
 
 interface IProps {
   todos: ITodo[]
+  deleteTodo: (id: string) => void;
 }
 interface IState {
   editingId: string
@@ -12,7 +13,7 @@ interface IState {
 export default class TodoList extends React.Component<IProps, IState> {
   readonly state: IState = {
     editingId: ''
-  }
+  };
 
   setEditingId = (val: string) => {
     this.setState({
@@ -27,7 +28,8 @@ export default class TodoList extends React.Component<IProps, IState> {
 
   render() {
     const {
-      todos
+      todos,
+      deleteTodo
     } = this.props;
     const {
       editingId
@@ -41,6 +43,7 @@ export default class TodoList extends React.Component<IProps, IState> {
                   editingId={editingId}
                   text={text}
                   isDone={isDone}
+                  deleteTodo={deleteTodo}
                   unsetEditingId={this.unsetEditingID}/>
           ))}
         </ul>
