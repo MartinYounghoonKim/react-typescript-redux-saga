@@ -16,7 +16,11 @@ export default function todoReducer(state = TodoStates, action: any) {
     case UPDATE_TODO:
       return {
         ...state,
-        todos: action.payload
+        todos: state.todos.map(
+          todo => todo.id === action.payload.id ?
+            { ...todo, ...action.payload }:
+            todo
+        ),
       };
     case START_EDITING:
       return {

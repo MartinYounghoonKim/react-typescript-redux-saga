@@ -9,6 +9,7 @@ interface IProps {
   deleteTodo: (id: string) => void;
   startEditing: (id: string) => void;
   endEditing: () => void;
+  updateTodo: (payload: { id: string; text: string }) => void;
 }
 export default class Todo extends React.Component<IProps> {
   private inputElement: HTMLInputElement;
@@ -22,7 +23,6 @@ export default class Todo extends React.Component<IProps> {
   componentDidUpdate () {
     this.inputElement.focus();
   }
-
   toggle = (targetId: string) => {
   };
   updateTodo = (event: any) => {
@@ -31,6 +31,8 @@ export default class Todo extends React.Component<IProps> {
     if (isPressedEnter) {
       const text = inputElement.value;
       const id = this.props.id;
+      this.props.updateTodo({ id, text });
+      this.inputElement.blur();
     }
   };
 

@@ -30,10 +30,7 @@ export function deleteTodo (id: string) {
 }
 
 export function updateTodo (payload: { id: string; text: string}) {
-  return {
-    type: UPDATE_TODO,
-    payload
-  }
+  return { type: UPDATE_TODO, payload }
 }
 
 export function fetchTodos (payload: ITodo[]) {

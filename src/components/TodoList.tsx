@@ -9,6 +9,7 @@ interface IProps {
   deleteTodo: (id: string) => void;
   startEditing: (id: string) => void;
   endEditing: () => void;
+  updateTodo: (payload: { id: string; text: string }) => void;
 }
 
 export default class TodoList extends React.Component<IProps> {
@@ -19,6 +20,7 @@ export default class TodoList extends React.Component<IProps> {
       editingId,
       startEditing,
       endEditing,
+      updateTodo,
     } = this.props;
     return (
       <div className="todo-app__main">
@@ -31,6 +33,7 @@ export default class TodoList extends React.Component<IProps> {
                   isDone={isDone}
                   deleteTodo={deleteTodo}
                   startEditing={startEditing}
+                  updateTodo={updateTodo}
                   endEditing={endEditing}/>
           ))}
         </ul>
