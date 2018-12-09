@@ -1,6 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import Classnames from 'classnames';
 
+interface IState {
+  isEditing: boolean
+}
+
 interface IProps {
   id: string;
   text: string;
@@ -11,19 +15,33 @@ interface IProps {
   unsetEditingId: (e: ChangeEvent) => void;
   endEditing: () => void;
 }
-
-export default class Todo extends React.Component<IProps> {
+export default class Todo extends React.Component<IProps, IState> {
   private inputElement: HTMLInputElement;
+  readonly state: IState = {
+    isEditing: false,
+  };
+
+
+  componentDidUpdate (prevProps: IProps, prevState: IState) {
+    const { isEditing } = this.state;
+    if (isEditing) {
+      this.inputElement.value = this.props.text;
+      this.inputElement.focus();
+    }
+  }
+
   toggle = (targetId: string) => {
   };
-  deleteTodo = (targetId: string) => {
-  };
   focusEditingField = (id: string) => {
-    // setTimeout(() => {
-    //   this.inputElement.value = this.props.text;
-    //   this.inputElement.focus();
-    // }, 0);
+    this.setState({
+      isEditing: true
+    });
   };
+  onBlurHandler = () => {
+    this.setState({
+      isEditing: false
+    });
+  }
   updateTodo = (event: any) => {
     const inputElement = event.target;
     const isPressedEnter = event.keyCode === 13;
@@ -44,6 +62,12 @@ export default class Todo extends React.Component<IProps> {
       startEditing,
       unsetEditingId,
     } = this.props;
+    const {
+      isEditing,
+    } = this.state;
+    const {
+      onBlurHandler
+    } = this;
     return (
       <li className={Classnames("todo-item", { completed: isDone, editing: editingId === id })}
           onDoubleClick={() => startEditing(id)}>
