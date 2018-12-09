@@ -12,17 +12,6 @@ interface IProps {
 }
 
 export default class TodoList extends React.Component<IProps> {
-  setEditingId = (val: string) => {
-    this.setState({
-      editingId: val
-    });
-  };
-  unsetEditingID = () => {
-    this.setState({
-      editingId: ""
-    });
-  };
-
   render() {
     const {
       todos,
@@ -42,8 +31,7 @@ export default class TodoList extends React.Component<IProps> {
                   isDone={isDone}
                   deleteTodo={deleteTodo}
                   startEditing={startEditing}
-                  endEditing={endEditing}
-                  unsetEditingId={this.unsetEditingID}/>
+                  endEditing={endEditing}/>
           ))}
         </ul>
       </div>
