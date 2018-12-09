@@ -1,4 +1,5 @@
 export type ITodoState = {
+  editingId: string;
   todos: ITodos;
 }
 export type ITodos = ITodo[];
