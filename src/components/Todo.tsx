@@ -27,10 +27,11 @@ export default class Todo extends React.Component<IProps> {
   };
   updateTodo = (event: any) => {
     const inputElement = event.target;
+    const text = inputElement.value;
+    const id = this.props.id;
     const isPressedEnter = event.keyCode === 13;
-    if (isPressedEnter) {
-      const text = inputElement.value;
-      const id = this.props.id;
+    const isEmpty = text.length <= 0;
+    if (isPressedEnter && !isEmpty) {
       this.props.updateTodo({ id, text });
       this.inputElement.blur();
     }
