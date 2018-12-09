@@ -6,7 +6,7 @@ import TodoList from './TodoList';
 import {ITodo, ITodoState} from "@/interfaces/models";
 import { connect } from "react-redux";
 import {Dispatch} from "redux";
-import {addTodo, deleteTodo} from "../stores/actions";
+import {addTodo, deleteTodo, endEditing, startEditing} from "../stores/actions";
 
 interface IState {
   todos: ITodo[];
@@ -14,11 +14,16 @@ interface IState {
 
 interface IMapStateToProps {
   todos: ITodo[];
+  editingId: string;
 }
+
 interface IMapDispatchToProps {
   addTodo: (payload: ITodo) => void;
   deleteTodo: (id: string) => void;
+  startEditing: (id: string) => void;
+  endEditing: () => void;
 }
+
 type IProps = {} & IMapStateToProps & IMapDispatchToProps;
 
 class App extends React.Component<IProps, IState> {
@@ -32,13 +37,15 @@ class App extends React.Component<IProps, IState> {
   };
 
   deleteTodo = (id: string) => {
-    console.log(id);
     this.props.deleteTodo(id);
   };
 
   render() {
     const {
-      todos
+      todos,
+      editingId,
+      startEditing,
+      endEditing,
     } = this.props;
     const {
       addTodo,
@@ -47,7 +54,10 @@ class App extends React.Component<IProps, IState> {
     return (
       <div className="todo-app">
         <Header addTodo={addTodo}/>
-        <TodoList deleteTodo={deleteTodo}
+        <TodoList editingId={editingId}
+                  deleteTodo={deleteTodo}
+                  startEditing={startEditing}
+                  endEditing={endEditing}
                   todos={todos}/>
         <Footer count={todos.length}/>
       </div>
@@ -56,7 +66,8 @@ class App extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: ITodoState): IMapStateToProps => ({
-  todos: state.todos
+  todos: state.todos,
+  editingId: state.editingId,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
@@ -66,6 +77,12 @@ const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
     },
     deleteTodo: (id) => {
       dispatch(deleteTodo(id));
+    },
+    startEditing: (id) => {
+      dispatch(startEditing(id));
+    },
+    endEditing: () => {
+      dispatch(endEditing());
     }
   }
 };

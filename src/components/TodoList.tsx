@@ -4,17 +4,14 @@ import Todo from './Todo';
 import { ITodo } from "@/interfaces/models";
 
 interface IProps {
-  todos: ITodo[]
+  todos: ITodo[];
+  editingId: string;
   deleteTodo: (id: string) => void;
+  startEditing: (id: string) => void;
+  endEditing: () => void;
 }
-interface IState {
-  editingId: string
-}
-export default class TodoList extends React.Component<IProps, IState> {
-  readonly state: IState = {
-    editingId: ''
-  };
 
+export default class TodoList extends React.Component<IProps> {
   setEditingId = (val: string) => {
     this.setState({
       editingId: val
@@ -29,11 +26,11 @@ export default class TodoList extends React.Component<IProps, IState> {
   render() {
     const {
       todos,
-      deleteTodo
+      deleteTodo,
+      editingId,
+      startEditing,
+      endEditing,
     } = this.props;
-    const {
-      editingId
-    } = this.state;
     return (
       <div className="todo-app__main">
         <ul className="todo-list">
@@ -44,6 +41,8 @@ export default class TodoList extends React.Component<IProps, IState> {
                   text={text}
                   isDone={isDone}
                   deleteTodo={deleteTodo}
+                  startEditing={startEditing}
+                  endEditing={endEditing}
                   unsetEditingId={this.unsetEditingID}/>
           ))}
         </ul>
