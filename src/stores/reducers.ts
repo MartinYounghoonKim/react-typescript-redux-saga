@@ -1,5 +1,8 @@
 import { TodoStates } from "./states";
-import {ADD_TODO, DELETE_TODO, END_EDITING, FETCH_TODO, START_EDITING, UPDATE_TODO} from "../stores/actions";
+import {
+  ADD_TODO, DELETE_TODO, END_EDITING, FETCH_TODO, START_EDITING, TOGGLE_TODO,
+  UPDATE_TODO
+} from "../stores/actions";
 
 export default function todoReducer(state = TodoStates, action: any) {
   switch (action.type) {
@@ -22,6 +25,15 @@ export default function todoReducer(state = TodoStates, action: any) {
             todo
         ),
       };
+    case TOGGLE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map(
+          todo => todo.id === action.targetId ?
+            { ...todo, isDone: !todo.isDone }:
+            todo
+        )
+      }
     case START_EDITING:
       return {
         ...state,

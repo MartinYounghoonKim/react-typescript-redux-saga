@@ -10,6 +10,7 @@ interface IProps {
   startEditing: (id: string) => void;
   endEditing: () => void;
   updateTodo: (payload: { id: string; text: string }) => void;
+  toggleTodo: (targetId: string) => void;
 }
 export default class Todo extends React.Component<IProps> {
   private inputElement: HTMLInputElement;
@@ -23,8 +24,6 @@ export default class Todo extends React.Component<IProps> {
   componentDidUpdate () {
     this.inputElement.focus();
   }
-  toggle = (targetId: string) => {
-  };
   updateTodo = (event: any) => {
     const inputElement = event.target;
     const text = inputElement.value;
@@ -45,12 +44,13 @@ export default class Todo extends React.Component<IProps> {
       editingId,
       deleteTodo,
       endEditing,
+      toggleTodo,
       startEditing,
     } = this.props;
     return (
       <li className={Classnames("todo-item", { completed: isDone, editing: editingId === id })}
           onDoubleClick={() => startEditing(id)}>
-        <button className="toggle" onClick={() => this.toggle(id)}/>
+        <button className="toggle" onClick={() => toggleTodo(id)}/>
         <div className="todo-item__view">
           <div className="todo-item__view__text">{text}</div>
           <button className="todo-item__destroy"

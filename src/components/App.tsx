@@ -6,7 +6,7 @@ import TodoList from './TodoList';
 import {ITodo, ITodoState} from "@/interfaces/models";
 import { connect } from "react-redux";
 import {Dispatch} from "redux";
-import {addTodo, deleteTodo, endEditing, startEditing, updateTodo} from "../stores/actions";
+import {addTodo, deleteTodo, endEditing, startEditing, toggleTodo, updateTodo} from "../stores/actions";
 
 interface IState {
   todos: ITodo[];
@@ -23,6 +23,7 @@ interface IMapDispatchToProps {
   startEditing: (id: string) => void;
   endEditing: () => void;
   updateTodo: (payload: { id: string; text: string }) => void;
+  toggleTodo: (targetId: string) => void;
 }
 
 type IProps = {} & IMapStateToProps & IMapDispatchToProps;
@@ -48,6 +49,7 @@ class App extends React.Component<IProps, IState> {
       startEditing,
       endEditing,
       updateTodo,
+      toggleTodo,
     } = this.props;
     const {
       addTodo,
@@ -61,6 +63,7 @@ class App extends React.Component<IProps, IState> {
                   startEditing={startEditing}
                   endEditing={endEditing}
                   updateTodo={updateTodo}
+                  toggleTodo={toggleTodo}
                   todos={todos}/>
         <Footer count={todos.length}/>
       </div>
@@ -89,6 +92,9 @@ const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
     },
     updateTodo: (payload) => {
       dispatch(updateTodo(payload));
+    },
+    toggleTodo: (targetId) => {
+      dispatch(toggleTodo(targetId));
     }
   }
 };
