@@ -38,10 +38,10 @@ export function ajaxPost (text: string) {
     })
 }
 
-export function ajaxPut (payload: { id: string; text: string }) {
+export function ajaxPut (payload: { id: string; text?: string; isDone?: boolean; }) {
     return new Promise((resolve, reject) => {
-        const { id, text } = payload
-        axios.put(`http://localhost:2403/todos/${id}`, { text })
+        const { id, text, isDone } = payload
+        axios.put(`http://localhost:2403/todos/${id}`, { text, isDone })
             .then(res => {
                 if (res.status === 200) {
                     resolve({

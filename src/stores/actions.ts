@@ -18,15 +18,17 @@ export const FETCH_TODO = "TODO/FETCH_TODO";
 export const SAGA_FETCH_TODO = "SAGA@TODO/FETCH_TODO";
 export const START_EDITING = "START_EDITING";
 export const END_EDITING = "END_EDITING";
+
 export const TOGGLE_TODO = "TOGGLE_TODO";
+export const SAGA_TOGGLE_TODO = "SAGA@/TODO_TOGGLE_TODO";
 
 
 export function addTodoActionCreator (payload: ITodo): IAddTodoAction {
   return { type: ADD_TODO, payload }
 }
 
-export function toggleTodo (targetId: string): IToggleTodoAction {
-  return { type: TOGGLE_TODO, targetId }
+export function toggleTodoActionCreate (payload: ITodo): IToggleTodoAction {
+  return { type: TOGGLE_TODO, payload }
 }
 
 export function startEditing (editingId: string): IStartEditingAction {

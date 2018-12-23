@@ -10,7 +10,10 @@ interface IProps {
   startEditing: (id: string) => void;
   endEditing: () => void;
   updateTodo: (payload: { id: string; text: string }) => void;
-  toggleTodo: (targetId: string) => void;
+  toggleTodo: (payload: {
+    id: string;
+    isDone: boolean;
+  }) => void;
 }
 
 export default class TodoList extends React.Component<IProps> {

@@ -1,12 +1,19 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {ajaxDelete, ajaxGet, ajaxPost, ajaxPut} from "../api/todo.api";
 import {
-  addTodoActionCreator, deleteTodoActionCreator, fetchTodosActionCreator, SAGA_DELETE_TODO,
-  SAGA_FETCH_TODO, SAGA_UPDATE_TODO, updateTodoActionCreator
+  SAGA_ADD_TODO,
+  SAGA_TOGGLE_TODO,
+  toggleTodoActionCreate,
+  addTodoActionCreator,
+  deleteTodoActionCreator,
+  fetchTodosActionCreator,
+  SAGA_DELETE_TODO,
+  SAGA_FETCH_TODO,
+  SAGA_UPDATE_TODO,
+  updateTodoActionCreator
 } from "./actions";
 import {ISagaAddTodoAction} from "../stores/actions-types";
-import {SAGA_ADD_TODO} from "../stores/actions";
-import {ISagaDeleteTodoAction, ISagaUpdateTodoAction} from "@/stores/actions-types";
+import {ISagaDeleteTodoAction, ISagaToggleTodoAction, ISagaUpdateTodoAction} from "@/stores/actions-types";
 
 export const sagaFetchTodo = () => ({
   type: SAGA_FETCH_TODO
@@ -22,6 +29,10 @@ export const sagaDeleteTodo = (id: string) => ({
 
 export const sagaUpdateTodo = ({ text, id }: { text: string; id: string }) => ({
   type: SAGA_UPDATE_TODO, payload: { text, id }
+});
+
+export const sagaToggleTodo = (payload: { id: string; isDone: boolean; }) => ({
+  type: SAGA_TOGGLE_TODO, payload
 });
 
 export function* fetchTodo () {
@@ -61,10 +72,21 @@ export function* updateTodo (action: ISagaUpdateTodoAction): IterableIterator<an
   }
 }
 
+export function* toggleTodo (action: ISagaToggleTodoAction) {
+  console.log(action.payload);
+  try {
+    const { data } = yield call(ajaxPut, action.payload);
+    yield put(toggleTodoActionCreate(data));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 
 export default function* rootSaga() {
   yield takeEvery(SAGA_FETCH_TODO, fetchTodo);
   yield takeEvery(SAGA_ADD_TODO, addTodo);
   yield takeEvery(SAGA_DELETE_TODO, deleteTodo);
   yield takeEvery(SAGA_UPDATE_TODO, updateTodo);
+  yield takeEvery(SAGA_TOGGLE_TODO, toggleTodo);
 }

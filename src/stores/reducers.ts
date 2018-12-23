@@ -30,8 +30,8 @@ export default function todoReducer(state = TodoStates, action: ITodoActionTypes
       return {
         ...state,
         todos: state.todos.map(
-          todo => todo.id === action.targetId ?
-            { ...todo, isDone: !todo.isDone }:
+          todo => todo.id === action.payload.id ?
+            { ...todo, ...action.payload }:
             todo
         )
       }

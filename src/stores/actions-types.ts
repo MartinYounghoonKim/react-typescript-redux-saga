@@ -1,7 +1,8 @@
 import {ITodo} from "../interfaces/models";
 import {ADD_TODO, TOGGLE_TODO} from "../stores/actions";
 import {
-  DELETE_TODO, END_EDITING, FETCH_TODO, SAGA_ADD_TODO, SAGA_DELETE_TODO, SAGA_UPDATE_TODO, START_EDITING,
+  DELETE_TODO, END_EDITING, FETCH_TODO, SAGA_ADD_TODO, SAGA_DELETE_TODO, SAGA_TOGGLE_TODO, SAGA_UPDATE_TODO,
+  START_EDITING,
   UPDATE_TODO
 } from "@/stores/actions";
 
@@ -19,7 +20,14 @@ export interface ISagaAddTodoAction {
 
 export interface IToggleTodoAction {
   type: typeof TOGGLE_TODO,
-  targetId: string,
+  payload: ITodo,
+}
+
+export interface ISagaToggleTodoAction {
+  type: typeof SAGA_TOGGLE_TODO,
+  payload: {
+    id: string;
+  }
 }
 
 export interface IStartEditingAction {

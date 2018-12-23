@@ -5,14 +5,11 @@ import Footer from './Footer';
 import TodoList from './TodoList';
 import {ITodo, ITodoState} from "@/interfaces/models";
 import { connect } from "react-redux";
-import {Dispatch} from "redux";
 import {
   endEditing,
   startEditing,
-  toggleTodo,
-  updateTodoActionCreator
 } from "../stores/actions";
-import {deleteTodo, sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaUpdateTodo} from "../stores/saga";
+import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/saga";
 
 interface IState {
   todos: ITodo[];
@@ -81,34 +78,21 @@ interface IMapDispatchToProps {
   startEditing: (id: string) => void;
   endEditing: () => void;
   updateTodo: (payload: { id: string; text: string }) => void;
-  toggleTodo: (targetId: string) => void;
+  toggleTodo: (payload: {
+    id: string;
+    isDone: boolean;
+  }) => void;
   fetchTodo: () => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
-  return {
-    deleteTodo: (id) => {
-      dispatch(sagaDeleteTodo(id));
-    },
-    startEditing: (id) => {
-      dispatch(startEditing(id));
-    },
-    endEditing: () => {
-      dispatch(endEditing());
-    },
-    updateTodo: (payload) => {
-      dispatch(sagaUpdateTodo(payload));
-    },
-    toggleTodo: (targetId) => {
-      dispatch(toggleTodo(targetId));
-    },
-    fetchTodo: () => {
-      dispatch(sagaFetchTodo());
-    },
-    addTodo: (text) => {
-      dispatch(sagaAddTodo(text));
-    }
-  }
+const mapDispatchToProps: IMapDispatchToProps = {
+  deleteTodo: sagaDeleteTodo,
+  startEditing: startEditing,
+  endEditing: endEditing,
+  updateTodo: sagaUpdateTodo,
+  toggleTodo: sagaToggleTodo,
+  fetchTodo: sagaFetchTodo,
+  addTodo: sagaAddTodo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
