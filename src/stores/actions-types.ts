@@ -1,10 +1,22 @@
 import {ITodo} from "../interfaces/models";
-import {ADD_TODO, TOGGLE_TODO} from "../stores/actions";
-import {
-  DELETE_TODO, END_EDITING, FETCH_TODO, SAGA_ADD_TODO, SAGA_DELETE_TODO, SAGA_TOGGLE_TODO, SAGA_UPDATE_TODO,
-  START_EDITING,
-  UPDATE_TODO
-} from "@/stores/actions";
+
+export const ADD_TODO = "TODO/ADD_TODO";
+export const SAGA_ADD_TODO = "SAGA@TODO/ADD_TODO";
+
+export const DELETE_TODO = "DELETE_TODO";
+export const SAGA_DELETE_TODO = "SAGA@DELETE_TODO";
+
+export const UPDATE_TODO = "UPDATE_TODO";
+export const SAGA_UPDATE_TODO = "SAGA@TODO/UPDATE_TODO";
+
+export const FETCH_TODO = "TODO/FETCH_TODO";
+export const SAGA_FETCH_TODO = "SAGA@TODO/FETCH_TODO";
+export const START_EDITING = "START_EDITING";
+export const END_EDITING = "END_EDITING";
+
+export const TOGGLE_TODO = "TOGGLE_TODO";
+export const SAGA_TOGGLE_TODO = "SAGA@/TODO_TOGGLE_TODO";
+
 
 export interface IAddTodoAction {
   type: typeof ADD_TODO,

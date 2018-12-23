@@ -9,7 +9,7 @@ import {
   endEditing,
   startEditing,
 } from "../stores/actions";
-import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/saga";
+import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/sagas";
 
 interface IState {
   todos: ITodo[];
@@ -45,11 +45,9 @@ class App extends React.Component<IProps, IState> {
       endEditing,
       updateTodo,
       toggleTodo,
-    } = this.props;
-    const {
       addTodo,
-      deleteTodo
-    } = this;
+      deleteTodo,
+    } = this.props;
     return (
       <div className="todo-app">
         <Header addTodo={addTodo}/>

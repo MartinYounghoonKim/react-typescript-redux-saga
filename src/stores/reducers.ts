@@ -1,8 +1,13 @@
 import { TodoStates } from "./states";
 import {
-  ADD_TODO, DELETE_TODO, END_EDITING, FETCH_TODO, START_EDITING, TOGGLE_TODO,
-  UPDATE_TODO
-} from "../stores/actions";
+  ADD_TODO,
+  FETCH_TODO,
+  TOGGLE_TODO,
+  UPDATE_TODO,
+  DELETE_TODO,
+  END_EDITING,
+  START_EDITING,
+} from "../stores/actions-types";
 import {ITodoActionTypes} from "@/stores/actions-types";
 
 export default function todoReducer(state = TodoStates, action: ITodoActionTypes) {
