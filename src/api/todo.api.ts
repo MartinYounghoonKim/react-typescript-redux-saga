@@ -19,7 +19,7 @@ export function ajaxGet () {
     })
 }
 
-export function ajaxPost (payload) {
+export function ajaxPost (payload: any) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:2403/todos/', payload)
             .then(res => {
@@ -38,7 +38,7 @@ export function ajaxPost (payload) {
     })
 }
 
-export function ajaxPut (payload) {
+export function ajaxPut (payload: any) {
     return new Promise((resolve, reject) => {
         const { id, text } = payload
         axios.put(`http://localhost:2403/todos/${id}`, { text })
@@ -58,7 +58,7 @@ export function ajaxPut (payload) {
     })
 }
 
-export function ajaxDelete (id) {
+export function ajaxDelete (id: any) {
     return new Promise((resolve, reject) => {
         axios.delete(`http://localhost:2403/todos/${id}`)
             .then(res => {
