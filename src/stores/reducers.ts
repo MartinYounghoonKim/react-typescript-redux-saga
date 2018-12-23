@@ -3,8 +3,9 @@ import {
   ADD_TODO, DELETE_TODO, END_EDITING, FETCH_TODO, START_EDITING, TOGGLE_TODO,
   UPDATE_TODO
 } from "../stores/actions";
+import {ITodoActionTypes} from "@/stores/actions-types";
 
-export default function todoReducer(state = TodoStates, action: any) {
+export default function todoReducer(state = TodoStates, action: ITodoActionTypes) {
   switch (action.type) {
     case FETCH_TODO:
       return {
@@ -47,10 +48,7 @@ export default function todoReducer(state = TodoStates, action: any) {
     case ADD_TODO:
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          ...action.payload
-        ]
+        todos: state.todos.concat(action.payload)
       };
     default:
       return state

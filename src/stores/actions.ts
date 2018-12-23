@@ -1,4 +1,9 @@
 import {ITodo} from "@/interfaces/models";
+import {IAddTodoAction} from "../stores/actions-types";
+import {
+  IDeleteTodoAction, IEndEditingAction, IFetchTodosAction, IStartEditingAction, IToggleTodoAction,
+  IUpdateTodoAction
+} from "@/stores/actions-types";
 
 export const ADD_TODO = "ADD_TODO";
 export const DELETE_TODO = "DELETE_TODO";
@@ -8,37 +13,31 @@ export const START_EDITING = "START_EDITING";
 export const END_EDITING = "END_EDITING";
 export const TOGGLE_TODO = "TOGGLE_TODO";
 
-export function addTodo (payload: ITodo) {
-  return {
-    type: ADD_TODO,
-    payload
-  }
+export function addTodo (payload: ITodo): IAddTodoAction {
+  return { type: ADD_TODO, payload }
 }
 
-export function toggleTodo (targetId: string) {
+export function toggleTodo (targetId: string): IToggleTodoAction {
   return { type: TOGGLE_TODO, targetId }
 }
 
-export function startEditing (editingId: string) {
+export function startEditing (editingId: string): IStartEditingAction {
   return { type: START_EDITING, editingId }
 }
 
-export function endEditing () {
+export function endEditing (): IEndEditingAction {
   return { type: END_EDITING }
 }
 
-export function deleteTodo (id: string) {
-  return {
-    type: DELETE_TODO,
-    id
-  }
+export function deleteTodo (id: string): IDeleteTodoAction {
+  return { type: DELETE_TODO, id }
 }
 
-export function updateTodo (payload: { id: string; text: string}) {
+export function updateTodo (payload: { id: string; text: string}): IUpdateTodoAction {
   return { type: UPDATE_TODO, payload }
 }
 
-export function fetchTodosActionCreator (payload: ITodo[]) {
+export function fetchTodosActionCreator (payload: ITodo[]): IFetchTodosAction {
   return {
     type: FETCH_TODO,
     payload
