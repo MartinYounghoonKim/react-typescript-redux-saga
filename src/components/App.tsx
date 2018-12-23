@@ -26,10 +26,14 @@ interface IMapDispatchToProps {
   toggleTodo: (targetId: string) => void;
 }
 
-type IProps = {} & IMapStateToProps & IMapDispatchToProps;
+type IProps = {
+  action: (type: any) => void;
+} & IMapStateToProps & IMapDispatchToProps;
 
 class App extends React.Component<IProps, IState> {
   componentWillMount() {
+    // this.props.insertTodoHandler();
+    this.props.action("@SAGA/TODO/FETCH_TODO");
   }
 
   addTodo = (text: string) => {
@@ -95,7 +99,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
     },
     toggleTodo: (targetId) => {
       dispatch(toggleTodo(targetId));
-    }
+    },
   }
 };
 
