@@ -19,9 +19,9 @@ export function ajaxGet () {
     })
 }
 
-export function ajaxPost (payload: any) {
+export function ajaxPost (text: string) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:2403/todos/', payload)
+        axios.post('http://localhost:2403/todos/', { text })
             .then(res => {
                 if (res.status === 200) {
                     resolve({
@@ -58,7 +58,7 @@ export function ajaxPut (payload: any) {
     })
 }
 
-export function ajaxDelete (id: any) {
+export function ajaxDelete (id: string) {
     return new Promise((resolve, reject) => {
         axios.delete(`http://localhost:2403/todos/${id}`)
             .then(res => {

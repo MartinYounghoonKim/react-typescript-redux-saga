@@ -7,9 +7,5 @@ interface ITodoStates {
 
 export const TodoStates: ITodoStates = {
   editingId: '',
-  todos: [
-    { id: '1', text: "투두 앱1", isDone: false },
-    { id: '2', text: "투두 앱2", isDone: false },
-    { id: '3', text: "투두 앱3", isDone: true },
-  ]
+  todos: []
 };

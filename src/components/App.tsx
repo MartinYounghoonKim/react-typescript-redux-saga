@@ -6,7 +6,13 @@ import TodoList from './TodoList';
 import {ITodo, ITodoState} from "@/interfaces/models";
 import { connect } from "react-redux";
 import {Dispatch} from "redux";
-import {addTodo, deleteTodo, endEditing, startEditing, toggleTodo, updateTodo} from "../stores/actions";
+import {
+  endEditing,
+  startEditing,
+  toggleTodo,
+  updateTodo
+} from "../stores/actions";
+import {deleteTodo, sagaAddTodo, sagaDeleteTodo, sagaFetchTodo} from "../stores/saga";
 
 interface IState {
   todos: ITodo[];
@@ -17,29 +23,17 @@ interface IMapStateToProps {
   editingId: string;
 }
 
-interface IMapDispatchToProps {
-  addTodo: (payload: ITodo) => void;
-  deleteTodo: (id: string) => void;
-  startEditing: (id: string) => void;
-  endEditing: () => void;
-  updateTodo: (payload: { id: string; text: string }) => void;
-  toggleTodo: (targetId: string) => void;
-}
-
 type IProps = {
   action: (type: any) => void;
 } & IMapStateToProps & IMapDispatchToProps;
 
 class App extends React.Component<IProps, IState> {
   componentWillMount() {
-    // this.props.insertTodoHandler();
-    this.props.action("@SAGA/TODO/FETCH_TODO");
+    this.props.fetchTodo();
   }
 
   addTodo = (text: string) => {
-    const id = new Date().getTime().toString();
-    const isDone = false;
-    this.props.addTodo({ id, text, isDone });
+    this.props.addTodo(text);
   };
 
   deleteTodo = (id: string) => {
@@ -80,13 +74,21 @@ const mapStateToProps = (state: ITodoState): IMapStateToProps => ({
   editingId: state.editingId,
 });
 
+
+interface IMapDispatchToProps {
+  addTodo: (text: string) => void;
+  deleteTodo: (id: string) => void;
+  startEditing: (id: string) => void;
+  endEditing: () => void;
+  updateTodo: (payload: { id: string; text: string }) => void;
+  toggleTodo: (targetId: string) => void;
+  fetchTodo: () => void;
+}
+
 const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
   return {
-    addTodo: (payload) => {
-      dispatch(addTodo(payload));
-    },
     deleteTodo: (id) => {
-      dispatch(deleteTodo(id));
+      dispatch(sagaDeleteTodo(id));
     },
     startEditing: (id) => {
       dispatch(startEditing(id));
@@ -100,6 +102,12 @@ const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
     toggleTodo: (targetId) => {
       dispatch(toggleTodo(targetId));
     },
+    fetchTodo: () => {
+      dispatch(sagaFetchTodo());
+    },
+    addTodo: (text) => {
+      dispatch(sagaAddTodo(text));
+    }
   }
 };
 

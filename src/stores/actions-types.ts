@@ -1,10 +1,20 @@
 import {ITodo} from "../interfaces/models";
 import {ADD_TODO, TOGGLE_TODO} from "../stores/actions";
-import {DELETE_TODO, END_EDITING, FETCH_TODO, START_EDITING, UPDATE_TODO} from "@/stores/actions";
+import {
+  DELETE_TODO, END_EDITING, FETCH_TODO, SAGA_ADD_TODO, SAGA_DELETE_TODO, START_EDITING,
+  UPDATE_TODO
+} from "@/stores/actions";
 
 export interface IAddTodoAction {
   type: typeof ADD_TODO,
   payload: ITodo,
+}
+
+export interface ISagaAddTodoAction {
+  type: typeof SAGA_ADD_TODO,
+  payload: {
+    text: string;
+  }
 }
 
 export interface IToggleTodoAction {
@@ -24,6 +34,13 @@ export interface IEndEditingAction {
 export interface IDeleteTodoAction {
   type: typeof DELETE_TODO,
   id: string;
+}
+
+export interface ISagaDeleteTodoAction {
+  type: typeof SAGA_DELETE_TODO,
+  payload: {
+    id: string;
+  }
 }
 
 export interface IUpdateTodoAction {
