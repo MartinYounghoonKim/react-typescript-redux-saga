@@ -38,7 +38,7 @@ export function ajaxPost (text: string) {
     })
 }
 
-export function ajaxPut (payload: any) {
+export function ajaxPut (payload: { id: string; text: string }) {
     return new Promise((resolve, reject) => {
         const { id, text } = payload
         axios.put(`http://localhost:2403/todos/${id}`, { text })

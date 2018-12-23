@@ -12,6 +12,8 @@ export const DELETE_TODO = "DELETE_TODO";
 export const SAGA_DELETE_TODO = "SAGA@DELETE_TODO";
 
 export const UPDATE_TODO = "UPDATE_TODO";
+export const SAGA_UPDATE_TODO = "SAGA@TODO/UPDATE_TODO";
+
 export const FETCH_TODO = "TODO/FETCH_TODO";
 export const SAGA_FETCH_TODO = "SAGA@TODO/FETCH_TODO";
 export const START_EDITING = "START_EDITING";
@@ -39,7 +41,7 @@ export function deleteTodoActionCreator (id: string): IDeleteTodoAction {
   return { type: DELETE_TODO, id }
 }
 
-export function updateTodo (payload: { id: string; text: string}): IUpdateTodoAction {
+export function updateTodoActionCreator (payload: { id: string; text: string}): IUpdateTodoAction {
   return { type: UPDATE_TODO, payload }
 }
 

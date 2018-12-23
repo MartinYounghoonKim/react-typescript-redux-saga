@@ -10,9 +10,9 @@ import {
   endEditing,
   startEditing,
   toggleTodo,
-  updateTodo
+  updateTodoActionCreator
 } from "../stores/actions";
-import {deleteTodo, sagaAddTodo, sagaDeleteTodo, sagaFetchTodo} from "../stores/saga";
+import {deleteTodo, sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaUpdateTodo} from "../stores/saga";
 
 interface IState {
   todos: ITodo[];
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
       dispatch(endEditing());
     },
     updateTodo: (payload) => {
-      dispatch(updateTodo(payload));
+      dispatch(sagaUpdateTodo(payload));
     },
     toggleTodo: (targetId) => {
       dispatch(toggleTodo(targetId));
