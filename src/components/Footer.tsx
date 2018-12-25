@@ -11,9 +11,9 @@ const Footer: React.FunctionComponent<IProps> = ({ count }) => (
       left
     </span>
     <ul className="todo-filters">
-      <li><a href="#none">All</a></li>
-      <li><a href="#none">Active</a></li>
-      <li><a href="#none">Completed</a></li>
+      <li><a href="#all">All</a></li>
+      <li><a href="#active">Active</a></li>
+      <li><a href="#completed">Completed</a></li>
     </ul>
   </footer>
 );

@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { ajaxDelete, ajaxGet, ajaxPost, ajaxPut } from "../api/todo.api";
+import { ajaxDelete, ajaxGet, ajaxPost, ajaxPut } from "../../api/todo.api";
 import {
   toggleTodoActionCreate,
   addTodoActionCreator,
@@ -14,8 +14,8 @@ import {
   SAGA_DELETE_TODO,
   SAGA_FETCH_TODO,
   SAGA_UPDATE_TODO,
-} from "../stores/actions-types";
-import {ISagaDeleteTodoAction, ISagaToggleTodoAction, ISagaUpdateTodoAction} from "@/stores/actions-types";
+} from "./actions-types";
+import {ISagaDeleteTodoAction, ISagaToggleTodoAction, ISagaUpdateTodoAction} from "stores/todo/actions-types";
 
 export const sagaFetchTodo = () => ({
   type: SAGA_FETCH_TODO

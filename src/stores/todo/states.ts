@@ -1,4 +1,4 @@
-import {ITodo} from "@/interfaces/models";
+import {ITodo} from "interfaces/models";
 
 interface ITodoStates {
   editingId: string;

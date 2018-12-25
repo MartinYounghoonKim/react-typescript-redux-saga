@@ -35,7 +35,7 @@ const buttonList = [
 const Root = (
   <Provider store={store}>
     <Fragment>
-      <App action={action}/>
+      <App/>
       {options.map(option => {
         return (
           buttonList.map(({code, component}) => {

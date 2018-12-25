@@ -7,8 +7,8 @@ import {
   DELETE_TODO,
   END_EDITING,
   START_EDITING,
-} from "../stores/actions-types";
-import {ITodoActionTypes} from "@/stores/actions-types";
+} from "./actions-types";
+import {ITodoActionTypes} from "stores/todo/actions-types";
 
 export default function todoReducer(state = TodoStates, action: ITodoActionTypes) {
   switch (action.type) {

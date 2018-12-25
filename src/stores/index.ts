@@ -1,8 +1,13 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import todoReducer from './reducers';
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import todoReducer from './todo/reducers';
+import filterReducer from './filter/reducers';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from "./sagas";
+import rootSaga from "./todo/sagas";
 
+const combinedReducers = combineReducers({
+  todoReducer,
+  filterReducer
+});
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers =
   typeof window === 'object' &&
@@ -12,7 +17,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   applyMiddleware(sagaMiddleware),
 );
-const store = createStore(todoReducer, enhancer);
+const store = createStore(combinedReducers, enhancer);
 sagaMiddleware.run(rootSaga);
 
 export default store;

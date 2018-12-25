@@ -1,4 +1,4 @@
-import { ITodo } from "@/interfaces/models";
+import { ITodo } from "interfaces/models";
 import {
   IAddTodoAction, ADD_TODO, // Add logic
   DELETE_TODO, IDeleteTodoAction, // Delete logic

@@ -1,4 +1,4 @@
-import {ITodo} from "../interfaces/models";
+import {ITodo} from "../../interfaces/models";
 
 export const ADD_TODO = "TODO/ADD_TODO";
 export const SAGA_ADD_TODO = "SAGA@TODO/ADD_TODO";

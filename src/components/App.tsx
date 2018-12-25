@@ -3,13 +3,13 @@ import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
-import {ITodo, ITodoState} from "@/interfaces/models";
+import {ITodo, IRootState} from "@/interfaces/models";
 import { connect } from "react-redux";
 import {
   endEditing,
   startEditing,
-} from "../stores/actions";
-import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/sagas";
+} from "../stores/todo/actions";
+import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/todo/sagas";
 
 interface IState {
   todos: ITodo[];
@@ -20,9 +20,7 @@ interface IMapStateToProps {
   editingId: string;
 }
 
-type IProps = {
-  action: (type: any) => void;
-} & IMapStateToProps & IMapDispatchToProps;
+type IProps = {} & IMapStateToProps & IMapDispatchToProps;
 
 class App extends React.Component<IProps, IState> {
   componentWillMount() {
@@ -64,9 +62,9 @@ class App extends React.Component<IProps, IState> {
   }
 }
 
-const mapStateToProps = (state: ITodoState): IMapStateToProps => ({
-  todos: state.todos,
-  editingId: state.editingId,
+const mapStateToProps = (state: IRootState): IMapStateToProps => ({
+  todos: state.todoReducer.todos,
+  editingId: state.todoReducer.editingId,
 });
 
 
