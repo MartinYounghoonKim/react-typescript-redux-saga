@@ -1,24 +1,30 @@
 import React from 'react';
+import {match} from "react-router";
+import {connect} from "react-redux";
+
 import './App.css';
+
 import Header from './Header';
 import Footer from './Footer';
 import TodoList from './TodoList';
-import {ITodo, IRootState} from "@/interfaces/models";
-import { connect } from "react-redux";
+
+import {ITodo, IRootState, ITodos} from "@/interfaces/models";
 import {
   endEditing,
   startEditing,
 } from "../stores/todo/actions";
-import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/todo/sagas";
-import {match} from "react-router";
+import {setFilter} from "../stores/filter/actions";
+
+import {
+  sagaAddTodo,
+  sagaFetchTodo,
+  sagaDeleteTodo,
+  sagaToggleTodo,
+  sagaUpdateTodo
+} from "../stores/todo/sagas";
 
 interface IState {
   todos: ITodo[];
-}
-
-interface IMapStateToProps {
-  todos: ITodo[];
-  editingId: string;
 }
 
 type IProps = {
@@ -27,7 +33,9 @@ type IProps = {
 
 class App extends React.Component<IProps, IState> {
   componentWillMount() {
+    const { match: { url }} = this.props;
     this.props.fetchTodo();
+    this.props.setFilter(url);
   }
 
   addTodo = (text: string) => {
@@ -48,7 +56,8 @@ class App extends React.Component<IProps, IState> {
       toggleTodo,
       addTodo,
       deleteTodo,
-      match
+      setFilter,
+      filter
     } = this.props;
     return (
       <div className="todo-app">
@@ -60,18 +69,30 @@ class App extends React.Component<IProps, IState> {
                   updateTodo={updateTodo}
                   toggleTodo={toggleTodo}
                   todos={todos}/>
-        <Footer url={match.url}
+        <Footer setFilter={setFilter}
+                filter={filter}
                 count={todos.length}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: IRootState): IMapStateToProps => ({
-  todos: state.todoReducer.todos,
-  editingId: state.todoReducer.editingId,
-});
+const filteredTodos = (todos: ITodos, filter: string) => {
+  switch (filter) {
+    case "active":
+      return todos.filter(todo => !todo.isDone);
+    case "completed":
+      return todos.filter(todo => todo.isDone);
+    default:
+      return todos;
+  }
+};
 
+const mapStateToProps = (state: IRootState): IMapStateToProps => ({
+  todos: filteredTodos(state.todoReducer.todos, state.filterReducer.filter),
+  editingId: state.todoReducer.editingId,
+  filter: state.filterReducer.filter,
+});
 
 interface IMapDispatchToProps {
   addTodo: (text: string) => void;
@@ -84,6 +105,13 @@ interface IMapDispatchToProps {
     isDone: boolean;
   }) => void;
   fetchTodo: () => void;
+  setFilter: (filter: string) => void;
+}
+
+interface IMapStateToProps {
+  todos: ITodo[];
+  editingId: string;
+  filter: string;
 }
 
 const mapDispatchToProps: IMapDispatchToProps = {
@@ -93,7 +121,8 @@ const mapDispatchToProps: IMapDispatchToProps = {
   updateTodo: sagaUpdateTodo,
   toggleTodo: sagaToggleTodo,
   fetchTodo: sagaFetchTodo,
-  addTodo: sagaAddTodo
+  addTodo: sagaAddTodo,
+  setFilter: setFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

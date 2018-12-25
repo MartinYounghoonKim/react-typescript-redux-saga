@@ -1,10 +1,17 @@
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import {
+  compose,
+  createStore,
+  applyMiddleware,
+  combineReducers,
+} from "redux";
+import createSagaMiddleware from 'redux-saga';
+
 import todoReducer from './todo/reducers';
 import filterReducer from './filter/reducers';
-import createSagaMiddleware from 'redux-saga';
+
 import rootSaga from "./todo/sagas";
 
-const combinedReducers = combineReducers({
+const todoReducers = combineReducers({
   todoReducer,
   filterReducer
 });
@@ -17,7 +24,8 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   applyMiddleware(sagaMiddleware),
 );
-const store = createStore(combinedReducers, enhancer);
+const store = createStore(todoReducers, enhancer);
+
 sagaMiddleware.run(rootSaga);
 
 export default store;
