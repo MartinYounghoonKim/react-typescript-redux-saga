@@ -3,9 +3,10 @@
 ## Features
 - [*] ReactJS 
 - [*] Typescript 
-- [ ] Redux 
+- [*] React router
+- [*] Redux 
 - [ ] Immutable 
-- [ ] Redux-sage
+- [*] Redux-saga
 
 ## Getting started
 1. install module
@@ -17,4 +18,12 @@ $ npm install
 2. start frontend server
 ```bash
 $ npm start
+```
+
+3. start deployd module
+```bash
+# If it is a first time to set this application.
+$ npm run dpd:create
+
+$ npm run dpd:up
 ```
