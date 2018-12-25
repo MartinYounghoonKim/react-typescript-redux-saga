@@ -10,6 +10,7 @@ import {
   startEditing,
 } from "../stores/todo/actions";
 import {sagaAddTodo, sagaDeleteTodo, sagaFetchTodo, sagaToggleTodo, sagaUpdateTodo} from "../stores/todo/sagas";
+import {match} from "react-router";
 
 interface IState {
   todos: ITodo[];
@@ -20,7 +21,9 @@ interface IMapStateToProps {
   editingId: string;
 }
 
-type IProps = {} & IMapStateToProps & IMapDispatchToProps;
+type IProps = {
+  match: match;
+} & IMapStateToProps & IMapDispatchToProps;
 
 class App extends React.Component<IProps, IState> {
   componentWillMount() {
@@ -45,6 +48,7 @@ class App extends React.Component<IProps, IState> {
       toggleTodo,
       addTodo,
       deleteTodo,
+      match
     } = this.props;
     return (
       <div className="todo-app">
@@ -56,7 +60,8 @@ class App extends React.Component<IProps, IState> {
                   updateTodo={updateTodo}
                   toggleTodo={toggleTodo}
                   todos={todos}/>
-        <Footer count={todos.length}/>
+        <Footer url={match.url}
+                count={todos.length}/>
       </div>
     );
   }

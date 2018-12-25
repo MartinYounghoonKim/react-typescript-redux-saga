@@ -7,6 +7,7 @@ import store from './stores';
 
 
 import Loadable from 'react-loadable';
+import {Route,BrowserRouter} from "react-router-dom";
 
 const ButtonContainer = Loadable({
   loader: () => import("./components/Button"),
@@ -34,19 +35,20 @@ const buttonList = [
 
 const Root = (
   <Provider store={store}>
-    <Fragment>
-      <App/>
-      {options.map(option => {
-        return (
-          buttonList.map(({code, component}) => {
-            if (code === option.code) {
-              return component;
-            }
-          })
-        )
-      })}
-    </Fragment>
+    <BrowserRouter>
+      <Route path="*" component={App}/>
+    </BrowserRouter>
   </Provider>
 );
+
+// {options.map(option => {
+//   return (
+//     buttonList.map(({code, component}) => {
+//       if (code === option.code) {
+//         return component;
+//       }
+//     })
+//   )
+// })}
 
 ReactDOM.render(Root, document.getElementById('root'));

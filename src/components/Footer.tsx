@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
+import classNames from 'classnames';
+import {NavLink} from 'react-router-dom';
 
 interface IProps {
   count: number;
+  url: string;
 }
-const Footer: React.FunctionComponent<IProps> = ({ count }) => (
+const Footer: React.FunctionComponent<IProps> = (
+  {
+    url,
+    count
+  }
+) => (
   <footer className="footer">
     <span className="todo-count">
       <strong>{count}</strong>
@@ -11,9 +19,27 @@ const Footer: React.FunctionComponent<IProps> = ({ count }) => (
       left
     </span>
     <ul className="todo-filters">
-      <li><a href="#all">All</a></li>
-      <li><a href="#active">Active</a></li>
-      <li><a href="#completed">Completed</a></li>
+      <li>
+        <NavLink className={classNames({
+          "selected": url === "/all"
+        })} to="/all">
+          All
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={classNames({
+          "selected": url === "/active"
+        })} to="/active">
+          Active
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={classNames({
+          "selected": url === "/completed"
+        })} to="/completed">
+          Completed
+        </NavLink>
+      </li>
     </ul>
   </footer>
 );
