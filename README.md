@@ -40,3 +40,4 @@ $ npm run dpd:up
   - https://facebook.github.io/immutable-js/
   - https://github.com/velopert/typescript-react-sample
   - https://tonyhb.gitbooks.io/redux-without-profanity/content/using_immutablejs_records.html
+  - https://github.com/r-park/todo-react-redux/
