@@ -1,4 +1,4 @@
-import { TodoStates } from "./states";
+import { TodoState, TodoItem } from "./states";
 import {
   ADD_TODO,
   FETCH_TODO,
@@ -9,52 +9,37 @@ import {
   START_EDITING,
 } from "./actions-types";
 import {ITodoActionTypes} from "stores/todo/actions-types";
+import {List} from "immutable";
 
-export default function todoReducer(state = TodoStates, action: ITodoActionTypes) {
+export default function todoReducer(state = new TodoState(), action: ITodoActionTypes) {
   switch (action.type) {
     case FETCH_TODO:
-      return {
-        ...state,
-        todos: action.payload
-      };
+      return state.withMutations(record => {
+        record.set("todos", List(action.payload));
+      });
     case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter(({ id }) => id !== action.id),
-      };
+      console.log(state);
+      return state.update("todos", todos => todos.filter(({ id }) => id !== action.id));
     case UPDATE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(
-          todo => todo.id === action.payload.id ?
-            { ...todo, ...action.payload }:
-            todo
-        ),
-      };
+      return state.update("todos", todos => todos.map(
+        todo => todo.id === action.payload.id ?
+          { ...todo, ...action.payload } :
+          todo
+      ));
     case TOGGLE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(
-          todo => todo.id === action.payload.id ?
-            { ...todo, ...action.payload }:
-            todo
-        )
-      }
+      return state.update("todos", todos => todos.map(
+        todo => todo.id === action.payload.id ?
+          {...todo, ...action.payload } :
+          todo
+      ));
     case START_EDITING:
-      return {
-        ...state,
-        editingId: action.editingId,
-      };
+      return state.set("editingId", action.editingId);
     case END_EDITING:
-      return {
-        ...state,
-        editingId: '',
-      };
+      return state.remove("editingId");
     case ADD_TODO:
-      return {
-        ...state,
-        todos: state.todos.concat(action.payload)
-      };
+      return state.withMutations(record => {
+        record.set("todos", state.todos.push(new TodoItem(action.payload)));
+      });
     default:
       return state
   }

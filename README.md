@@ -1,12 +1,12 @@
 # React, Typescript and redux-saga's example application
 
 ## Features
-- [*] ReactJS 
-- [*] Typescript 
-- [*] React router
-- [*] Redux 
-- [ ] Immutable 
-- [*] Redux-saga
+- * [x] ReactJS 
+- * [x] Typescript 
+- * [x] React router
+- * [x] Redux 
+- * [x] Immutable 
+- * [x] Redux-saga
 
 ## Getting started
 1. install module
@@ -35,4 +35,8 @@ $ npm run dpd:up
   - [https://github.com/Microsoft/redux-dynamic-modules](https://github.com/Microsoft/redux-dynamic-modules)
   - [https://gist.github.com/sudheerDev/303182c6043ea88c16ea900b0fc46fb5](https://gist.github.com/sudheerDev/303182c6043ea88c16ea900b0fc46fb5)
   - [https://github.com/react-boilerplate/react-boilerplate/tree/code-splitting-with-suspense](https://github.com/react-boilerplate/react-boilerplate/tree/code-splitting-with-suspense)
-  
+ 
+- * [x] immutable js with typescript in redux
+  - https://facebook.github.io/immutable-js/
+  - https://github.com/velopert/typescript-react-sample
+  - https://tonyhb.gitbooks.io/redux-without-profanity/content/using_immutablejs_records.html
