@@ -1,11 +1,13 @@
 export type IRootState = {
-  todoReducer: {
-    editingId: string;
-    todos: ITodos;
-  },
+  todoReducer: ITodoReducerState;
   filterReducer: {
     filter: string;
   }
+}
+
+export type ITodoReducerState = {
+  editingId: string;
+  todos: ITodos;
 }
 export type ITodos = ITodo[];
 
