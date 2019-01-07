@@ -1,4 +1,4 @@
-import { TodoState, TodoItem } from "./states";
+import { TodoItemRecord, TodoStateRecord } from "./states";
 import {
   ADD_TODO,
   FETCH_TODO,
@@ -11,7 +11,7 @@ import {
 import {ITodoActionTypes} from "stores/todo/actions-types";
 import {List} from "immutable";
 
-export default function todoReducer(state = new TodoState(), action: ITodoActionTypes) {
+export default function todoReducer(state = new TodoStateRecord(), action: ITodoActionTypes) {
   switch (action.type) {
     case FETCH_TODO:
       return state.withMutations(record => {
@@ -38,7 +38,7 @@ export default function todoReducer(state = new TodoState(), action: ITodoAction
       return state.remove("editingId");
     case ADD_TODO:
       return state.withMutations(record => {
-        record.set("todos", state.todos.push(new TodoItem(action.payload)));
+        record.set("todos", state.todos.push(new TodoItemRecord(action.payload)));
       });
     default:
       return state
