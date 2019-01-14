@@ -22,6 +22,7 @@ import {
   sagaToggleTodo,
   sagaUpdateTodo
 } from "../stores/todo/sagas";
+import {getNewReducer, splitReducerA, testAction} from "../stores";
 
 interface IState {
   todos: ITodo[];
@@ -45,6 +46,12 @@ class App extends React.Component<IProps, IState> {
   deleteTodo = (id: string) => {
     this.props.deleteTodo(id);
   };
+  test = () => {
+    getNewReducer({ name: 'aModule', reducer: splitReducerA });
+  }
+  action = () => {
+    this.props.testAction("test");
+  }
 
   render() {
     const {
@@ -61,6 +68,10 @@ class App extends React.Component<IProps, IState> {
     } = this.props;
     return (
       <div className="todo-app">
+        <button onClick={this.test}>
+          create
+        </button>
+        <button onClick={this.action}>action</button>
         <Header addTodo={addTodo}/>
         <TodoList editingId={editingId}
                   deleteTodo={deleteTodo}
@@ -106,6 +117,7 @@ interface IMapDispatchToProps {
   }) => void;
   fetchTodo: () => void;
   setFilter: (filter: string) => void;
+  testAction: (value: any) => void;
 }
 
 interface IMapStateToProps {
@@ -123,6 +135,7 @@ const mapDispatchToProps: IMapDispatchToProps = {
   fetchTodo: sagaFetchTodo,
   addTodo: sagaAddTodo,
   setFilter: setFilter,
+  testAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

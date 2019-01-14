@@ -35,6 +35,8 @@ $ npm run dpd:up
   - [https://github.com/Microsoft/redux-dynamic-modules](https://github.com/Microsoft/redux-dynamic-modules)
   - [https://gist.github.com/sudheerDev/303182c6043ea88c16ea900b0fc46fb5](https://gist.github.com/sudheerDev/303182c6043ea88c16ea900b0fc46fb5)
   - [https://github.com/react-boilerplate/react-boilerplate/tree/code-splitting-with-suspense](https://github.com/react-boilerplate/react-boilerplate/tree/code-splitting-with-suspense)
+  - [https://gist.github.com/gaearon/0a2213881b5d53973514](https://gist.github.com/gaearon/0a2213881b5d53973514)
+  - [https://medium.com/front-end-weekly/code-splitting-redux-reducers-4073db30c72e](https://medium.com/front-end-weekly/code-splitting-redux-reducers-4073db30c72e)
  
 - * [x] immutable js with typescript in redux
   - https://facebook.github.io/immutable-js/
